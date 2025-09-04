@@ -55,62 +55,138 @@
   <p class="bienvenida-text">
     Desde aquí podrás gestionar <span class="highlight">usuarios</span>, <span class="highlight">productos</span>,
     <span class="highlight">reportes</span> e <span class="highlight">inventario</span>. Todo en un solo lugar,
-    con una experiencia intuitiva y eficiente.
+    con una experiencia intuitiva и eficiente.
   </p>
 </div>
  
 
     <div *ngIf="seccionActiva === 'usuarios'">
-      <h2>Crear Usuario</h2>
-      <form #formUsuario="ngForm" (ngSubmit)="guardarUsuario()">
+  <h2>Gestión de Usuarios</h2>
+  
+  <div class="form-container">
+    <h3>Crear Usuario</h3>
+    <form #formUsuario="ngForm" (ngSubmit)="guardarUsuario()">
+      <div class="form-row">
         <div class="form-group">
-          <input type="text" name="usuario" [(ngModel)]="usuario.usuario" placeholder="Usuario" required />
+          <label for="cedula">Cédula *</label>
+          <input type="text" id="cedula" name="cedula" [(ngModel)]="usuario.cedula" 
+                 placeholder="Número de cédula" required pattern="[0-9]{6,15}" 
+                 title="La cédula debe contener solo números (6-15 dígitos)" />
         </div>
+        
         <div class="form-group">
-          <input type="password" name="password" [(ngModel)]="usuario.password" placeholder="Contraseña" required />
+          <label for="nombre">Nombre completo *</label>
+          <input type="text" id="nombre" name="nombre" [(ngModel)]="usuario.nombre" 
+                 placeholder="Nombre completo" required />
         </div>
+      </div>
+      
+      <div class="form-row">
         <div class="form-group">
-          <input type="text" name="nombre" [(ngModel)]="persona.nombre" placeholder="Nombre completo" required />
+          <label for="correo">Correo electrónico *</label>
+          <input type="email" id="correo" name="correo" [(ngModel)]="usuario.correo" 
+                 placeholder="Correo electrónico" required />
         </div>
+        
         <div class="form-group">
-          <input type="email" name="correo" [(ngModel)]="persona.correo" placeholder="Correo electrónico" required />
+          <label for="telefono">Teléfono</label>
+          <input type="tel" id="telefono" name="telefono" [(ngModel)]="usuario.telefono" 
+                 placeholder="Número de teléfono" pattern="[0-9]{7,10}" 
+                 title="El teléfono debe contener solo números (7-10 dígitos)" />
         </div>
+      </div>
+      
+      <div class="form-row">
         <div class="form-group">
-          <input type="tel" name="telefono" [(ngModel)]="persona.telefono" placeholder="Teléfono" required />
+          <label for="nombreUsuario">Nombre de usuario *</label>
+          <input type="text" id="nombreUsuario" name="nombreUsuario" [(ngModel)]="usuario.nombreUsuario" 
+                 placeholder="Nombre de usuario" required />
         </div>
+        
         <div class="form-group">
-          <select name="tipoUsuario" [(ngModel)]="usuario.tipoUsuario" class="select-usuario" required>
-            <option value="" disabled selected>Tipo de Usuario</option>
-            <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+          <label for="contrasena">Contraseña *</label>
+          <input type="password" id="contrasena" name="contrasena" [(ngModel)]="usuario.contrasena" 
+                 placeholder="Contraseña" required minlength="6" />
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="tipoUsuario">Tipo de Usuario *</label>
+          <select id="tipoUsuario" name="tipoUsuario" [(ngModel)]="usuario.tipoUsuario" required>
+            <option value="" disabled selected>Seleccione un tipo de usuario</option>
+            <option value="ADMIN">ADMINISTRADOR</option>
             <option value="VENDEDOR">VENDEDOR</option>
             <option value="CAJERO">CAJERO</option>
             <option value="DESPACHADOR">DESPACHADOR</option>
           </select>
         </div>
+        
         <div class="form-group">
-          <button type="submit">Guardar</button>
+          <label for="estado">Estado</label>
+          <select id="estado" name="estado" [(ngModel)]="usuario.estado">
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+          </select>
         </div>
-      </form>
-    
+      </div>
+      
+      <div class="form-group button-group">
+        <button type="submit" [disabled]="!formUsuario.valid">Guardar Usuario</button>
+        <button type="button" (click)="limpiarFormulario()">Limpiar</button>
+      </div>
+    </form>
+  </div>
+  
+  <div class="tabla-container">
+    <h3>Usuarios Registrados</h3>
+    <div class="tabla-scroll">
       <table class="tabla-usuarios">
         <thead>
           <tr>
             <th>ID</th>
+            <th>Cédula</th>
+            <th>Nombre</th>
             <th>Usuario</th>
+            <th>Correo</th>
             <th>Tipo</th>
-            <th>Contraseña</th>
+            <th>Estado</th>
+            <th>Fecha Creación</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let u of usuarios">
-            <td>{{ u.usuario }}</td>
-            <td>{{ u.usuario }}</td>
-            <td>{{ u.tipoUsuario }}</td>
-            <td>{{ u.password }}</td>
+            <td>{{ u.id }}</td>
+            <td>{{ u.cedula }}</td>
+            <td>{{ u.nombre }}</td>
+            <td>{{ u.nombreUsuario }}</td>
+            <td>{{ u.correo }}</td>
+            <td><span class="badge-tipo">{{ u.tipoUsuario }}</span></td>
+            <td>
+              <span [class.estado-activo]="u.estado" [class.estado-inactivo]="!u.estado">
+                {{ u.estado ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td>{{ u.fechaCreacion | date:'short' }}</td>
+            <td>
+              <div class="acciones-usuario">
+                <button (click)="editarUsuario(u)" title="Editar usuario">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button (click)="cambiarEstadoUsuario(u)" [class]="u.estado ? 'btn-desactivar' : 'btn-activar'" 
+                        [title]="u.estado ? 'Desactivar usuario' : 'Activar usuario'">
+                  <i [class]="u.estado ? 'fas fa-user-slash' : 'fas fa-user-check'"></i>
+                </button>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+    <p *ngIf="usuarios.length === 0" class="sin-registros">No hay usuarios registrados</p>
+  </div>
+</div>
 
     <div *ngIf="seccionActiva === 'productos'">
   <h2>Crear Producto</h2>
@@ -138,8 +214,6 @@
     </div>
     <div class="form-group button-group">
       <button type="submit">Guardar</button>
-      
-      
     </div>
   </form>
 
@@ -314,7 +388,7 @@
             <option value="true">Activado</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group button-group">
           <button type="submit">Guardar Cambios</button>
         </div>
       </form>

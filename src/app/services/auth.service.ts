@@ -59,7 +59,7 @@ export class AuthService {
 
   redirigirPorRol(rol: UsuarioDTO['tipoUsuario']): void {
     switch (rol) {
-      case 'ADMINISTRADOR':
+      case 'ADMIN':
         this.router.navigate(['/admin']);
         break;
       case 'VENDEDOR':

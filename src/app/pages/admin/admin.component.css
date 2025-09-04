@@ -13,6 +13,9 @@ body {
     padding: 0;
     position: relative;
     overflow-x: hidden;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1a1a1a;
 }
 
 .overlay {
@@ -21,19 +24,20 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.03);
     z-index: -1;
 }
 
 /* HEADER Y NAVEGACIÓN */
 header {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 15px 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(12px);
+    padding: 12px 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .menu {
@@ -42,27 +46,38 @@ header {
     justify-content: space-between;
     list-style: none;
     flex-wrap: wrap;
+    gap: 5px;
 }
 
 .logo {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
-    color: #000;
+    color: #1a1a1a;
     letter-spacing: -0.5px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 .menu li a {
     text-decoration: none;
     color: #333;
     font-weight: 500;
-    padding: 10px 15px;
+    padding: 10px 14px;
     border-radius: 8px;
     transition: all 0.3s ease;
+    font-size: 14px;
+    display: block;
 }
 
 .menu li a:hover {
     background: rgba(0, 0, 0, 0.05);
     color: #000;
+    transform: translateY(-1px);
+}
+
+.menu li a:active {
+    transform: translateY(0);
 }
 
 .logout {
@@ -72,18 +87,19 @@ header {
 
 /* CONTENIDO PRINCIPAL */
 main {
-    padding: 30px;
+    padding: 25px;
     max-width: 1400px;
     margin: 0 auto;
 }
 
 .content {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(12px);
     border-radius: 16px;
     padding: 30px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     min-height: 70vh;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* BIENVENIDA - ESTILOS ACTUALIZADOS */
@@ -91,7 +107,7 @@ main {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 50px 40px;
+    padding: 40px 30px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     text-align: center;
     margin: 20px 0;
@@ -102,6 +118,12 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: all 0.3s ease;
+}
+
+.bienvenida-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
 }
 
 .bienvenida-container::before {
@@ -141,8 +163,8 @@ main {
 }
 
 .bienvenida-img {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid rgba(255, 255, 255, 0.2);
@@ -151,6 +173,12 @@ main {
     position: relative;
     z-index: 10;
     background: white;
+    transition: all 0.4s ease;
+}
+
+.bienvenida-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
 }
 
 /* Efectos de onda alrededor del logo */
@@ -159,8 +187,8 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 220px;
-    height: 220px;
+    width: 210px;
+    height: 210px;
     border-radius: 50%;
     pointer-events: none;
     z-index: 1;
@@ -187,8 +215,8 @@ main {
 
 @keyframes wavePulse {
     0% {
-        width: 160px;
-        height: 160px;
+        width: 150px;
+        height: 150px;
         opacity: 0;
     }
     20% {
@@ -201,8 +229,8 @@ main {
         opacity: 0.3;
     }
     100% {
-        width: 260px;
-        height: 260px;
+        width: 250px;
+        height: 250px;
         opacity: 0;
     }
 }
@@ -213,8 +241,8 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 240px;
-    height: 240px;
+    width: 230px;
+    height: 230px;
     border-radius: 50%;
     pointer-events: none;
     animation: orbitRotation 18s linear infinite;
@@ -222,12 +250,12 @@ main {
 
 .dot {
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.7);
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
     animation: dotPulse 2s ease-in-out infinite alternate;
 }
 
@@ -252,9 +280,9 @@ main {
 
 /* Texto de bienvenida */
 .bienvenida-title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     color: #1a1a1a;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     font-weight: 700;
     background: linear-gradient(135deg, #1421cf 0%, #db1f1f 100%);
     -webkit-background-clip: text;
@@ -265,7 +293,7 @@ main {
 }
 
 .bienvenida-text {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #555;
     line-height: 1.6;
     max-width: 700px;
@@ -284,32 +312,63 @@ main {
 
 /* FORMULARIOS */
 h2 {
-    font-size: 28px;
+    font-size: 24px;
     color: #1a1a1a;
-    margin-bottom: 25px;
+    margin-bottom: 22px;
     font-weight: 700;
     padding-bottom: 10px;
     border-bottom: 2px solid #f0f0f0;
 }
 
+h3 {
+    font-size: 18px;
+    margin-bottom: 18px;
+    color: #333;
+    font-weight: 600;
+}
+
+.form-container {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 18px;
+}
+
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     position: relative;
+    flex: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 16px 22px;
+    padding: 14px 18px;
     background: #f8f9fa;
-    border-radius: 12px;
+    border-radius: 10px;
     border: 1px solid #e9ecef;
     outline: none;
-    font-size: 15px;
+    font-size: 14px;
     color: #1a1a1a;
     font-weight: 400;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
 }
 
 .form-group input:focus,
@@ -318,36 +377,30 @@ h2 {
     border-color: #000;
     background: #fff;
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
 }
 
 .form-group textarea {
-    min-height: 120px;
+    min-height: 110px;
     resize: vertical;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #333;
 }
 
 /* BOTONES */
 button,
 .btn-reporte {
-    padding: 16px 28px;
+    padding: 14px 24px;
     background: linear-gradient(135deg, #000 0%, #2a2a2a 100%);
-    border-radius: 12px;
+    border-radius: 10px;
     border: none;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 14px;
     color: #fff;
     font-weight: 600;
     letter-spacing: 0.3px;
     text-transform: uppercase;
     position: relative;
     overflow: hidden;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
 }
 
 button:hover,
@@ -357,12 +410,33 @@ button:hover,
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
+button:active,
+.btn-reporte:active {
+    transform: translateY(0);
+}
+
 .button-group {
     display: flex;
-    gap: 15px;
+    gap: 12px;
+    margin-top: 10px;
 }
 
 /* TABLAS */
+.tabla-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+    margin-top: 25px;
+}
+
+.tabla-scroll {
+    overflow-x: auto;
+    border-radius: 10px;
+    margin-top: 18px;
+}
+
 .tabla-usuarios,
 .tabla-productos,
 .tabla-ordenes,
@@ -371,16 +445,17 @@ button:hover,
 .tabla-configuracion {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 30px;
     background: #fff;
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    font-size: 13.5px;
 }
 
 .tabla-productos-scroll {
     overflow-x: auto;
-    margin-top: 30px;
+    margin-top: 25px;
+    border-radius: 10px;
 }
 
 .tabla-usuarios th,
@@ -390,11 +465,12 @@ button:hover,
 .tabla-inventario th,
 .tabla-configuracion th {
     background: #f8f9fa;
-    padding: 16px;
+    padding: 14px 16px;
     text-align: left;
     font-weight: 600;
     color: #333;
     border-bottom: 2px solid #e9ecef;
+    font-size: 14px;
 }
 
 .tabla-usuarios td,
@@ -403,9 +479,10 @@ button:hover,
 .tabla-reportes td,
 .tabla-inventario td,
 .tabla-configuracion td {
-    padding: 14px 16px;
+    padding: 12px 16px;
     border-bottom: 1px solid #e9ecef;
     color: #555;
+    vertical-align: middle;
 }
 
 .tabla-usuarios tr:hover,
@@ -415,6 +492,7 @@ button:hover,
 .tabla-inventario tr:hover,
 .tabla-configuracion tr:hover {
     background: #f8f9fa;
+    transition: background 0.2s ease;
 }
 
 .acciones-producto {
@@ -424,9 +502,59 @@ button:hover,
 
 .acciones-producto button {
     padding: 8px 12px;
-    font-size: 13px;
+    font-size: 12.5px;
     text-transform: none;
     letter-spacing: 0;
+}
+
+.acciones-usuario {
+    display: flex;
+    gap: 8px;
+}
+
+.acciones-usuario button {
+    padding: 8px 10px;
+    font-size: 13px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.acciones-usuario button:hover {
+    transform: scale(1.05);
+}
+
+.btn-desactivar {
+    background: linear-gradient(135deg, #db1f1f 0%, #b01515 100%);
+}
+
+.btn-activar {
+    background: linear-gradient(135deg, #0f9d58 0%, #0b8043 100%);
+}
+
+.badge-tipo {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #f0f5ff;
+    color: #1421cf;
+}
+
+.estado-activo {
+    color: #0f9d58;
+    font-weight: 500;
+}
+
+.estado-inactivo {
+    color: #db1f1f;
+    font-weight: 500;
+}
+
+.sin-registros {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+    font-style: italic;
 }
 
 /* FILTROS */
@@ -440,27 +568,48 @@ button:hover,
 .filtros-ordenes button {
     text-transform: none;
     letter-spacing: 0;
-    padding: 12px 18px;
-    font-size: 14px;
+    padding: 10px 16px;
+    font-size: 13px;
 }
 
 .botones-reportes {
     display: flex;
     gap: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 22px;
+}
+
+/* REPORTES */
+.reportes-container {
+    padding: 20px;
+    background: #f9fafb;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* CONFIGURACIÓN */
+.configuracion-container {
+    padding: 20px;
+    background: #f9fafb;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 /* RESPONSIVE */
 @media screen and (max-width: 1024px) {
     .menu {
         justify-content: center;
-        gap: 10px;
+        gap: 8px;
     }
     
     .menu li:first-child {
         flex-basis: 100%;
         text-align: center;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
     }
 }
 
@@ -474,26 +623,26 @@ button:hover,
     }
     
     .bienvenida-container {
-        padding: 30px 20px;
+        padding: 25px 18px;
     }
     
     .bienvenida-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     
     .bienvenida-img {
-        width: 140px;
-        height: 140px;
+        width: 130px;
+        height: 130px;
     }
     
     h2 {
-        font-size: 24px;
+        font-size: 22px;
     }
     
     .form-group input,
     .form-group select,
     .form-group textarea {
-        padding: 14px 18px;
+        padding: 12px 16px;
     }
     
     .tabla-usuarios,
@@ -502,10 +651,14 @@ button:hover,
     .tabla-reportes,
     .tabla-inventario,
     .tabla-configuracion {
-        font-size: 14px;
+        font-size: 13px;
     }
     
     .acciones-producto {
+        flex-direction: column;
+    }
+    
+    .filtros-ordenes {
         flex-direction: column;
     }
 }
@@ -521,7 +674,7 @@ button:hover,
     
     .menu li a {
         padding: 8px 10px;
-        font-size: 14px;
+        font-size: 13px;
     }
     
     .content {
@@ -529,11 +682,11 @@ button:hover,
     }
     
     .bienvenida-container {
-        padding: 25px 15px;
+        padding: 20px 15px;
     }
     
     .bienvenida-title {
-        font-size: 1.7rem;
+        font-size: 1.6rem;
     }
     
     .bienvenida-text {
@@ -541,42 +694,47 @@ button:hover,
     }
     
     .bienvenida-img {
-        width: 120px;
-        height: 120px;
+        width: 110px;
+        height: 110px;
     }
     
     .wave-container {
-        width: 180px;
-        height: 180px;
+        width: 170px;
+        height: 170px;
     }
     
     .orbit-dots {
-        width: 200px;
-        height: 200px;
+        width: 190px;
+        height: 190px;
     }
     
     h2 {
         font-size: 20px;
     }
     
-    .filtros-ordenes {
+    .botones-reportes {
         flex-direction: column;
     }
     
-    .botones-reportes {
+    .button-group {
         flex-direction: column;
+    }
+    
+    .tabla-container,
+    .form-container {
+        padding: 18px;
     }
 }
 
 /* EFECTOS DE ANIMACIÓN */
 .content > div {
-    animation: fadeIn 0.5s ease-in-out;
+    animation: fadeIn 0.4s ease-in-out;
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px);
     }
     to {
         opacity: 1;
@@ -584,26 +742,19 @@ button:hover,
     }
 }
 
-/* ESTILOS PARA ESTADOS ACTIVOS */
-.menu li a.active {
-    background: rgba(0, 0, 0, 0.1);
-    color: #000;
-    font-weight: 600;
-}
-
 /* ESTILOS PARA INPUT DE BÚSQUEDA */
 input[type="text"] {
     width: 100%;
-    padding: 16px 22px;
+    padding: 14px 18px;
     background: #f8f9fa;
-    border-radius: 12px;
+    border-radius: 10px;
     border: 1px solid #e9ecef;
     outline: none;
-    font-size: 15px;
+    font-size: 14px;
     color: #1a1a1a;
     font-weight: 400;
-    transition: all 0.4s ease;
-    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    margin-bottom: 18px;
 }
 
 input[type="text"]:focus {
@@ -617,6 +768,122 @@ input[type="text"]:focus {
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-position: right 18px center;
-    background-size: 16px;
+    background-position: right 16px center;
+    background-size: 14px;
+}
+
+/* Efectos de hover en tablas */
+.tabla-usuarios tr,
+.tabla-productos tr,
+.tabla-ordenes tr,
+.tabla-reportes tr,
+.tabla-inventario tr,
+.tabla-configuracion tr {
+    transition: background-color 0.2s ease;
+}
+
+/* Mejoras visuales para estados */
+.badge-tipo {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Separadores visuales */
+h2 {
+    position: relative;
+    padding-left: 15px;
+}
+
+h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 24px;
+    width: 4px;
+    background: linear-gradient(135deg, #1421cf 0%, #db1f1f 100%);
+    border-radius: 2px;
+}
+
+/* Estilos para los botones del formulario de usuario */
+.form-group.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef;
+}
+
+.form-group.button-group button {
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+/* Botón principal - Verde esmeralda profesional */
+.form-group.button-group button:first-child {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+.form-group.button-group button:first-child:hover:not([disabled]) {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+}
+
+.form-group.button-group button:first-child:active:not([disabled]) {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+}
+
+/* Botón secundario - Azul grisáceo elegante */
+.form-group.button-group button:last-child {
+    background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+    box-shadow: 0 4px 12px rgba(75, 85, 99, 0.25);
+}
+
+.form-group.button-group button:last-child:hover {
+    background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(75, 85, 99, 0.35);
+}
+
+.form-group.button-group button:last-child:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(75, 85, 99, 0.25);
+}
+
+/* Botón deshabilitado */
+.form-group.button-group button[disabled] {
+    background: linear-gradient(135deg, #d1d5db 0%, #9ca3af 100%);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos responsivos para los botones */
+@media screen and (max-width: 768px) {
+    .form-group.button-group {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .form-group.button-group button {
+        width: 100%;
+        justify-content: center;
+    }
 }

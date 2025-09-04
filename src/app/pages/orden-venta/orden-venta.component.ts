@@ -150,14 +150,14 @@ export class OrdenVentaComponent implements OnInit, AfterViewInit {
   onSubmit(): void {
     const vendedor: UsuarioDTO | null = this.usuarioService.getUsuario();
 
-    if (!vendedor || !vendedor.usuario) {
+    if (!vendedor || !vendedor.nombreUsuario) {
       alert('Error: no se encontró el usuario autenticado.');
       return;
     }
 
     const request: CrearOrdenDTO = {
       cliente: this.cliente,
-      vendedor: vendedor.usuario
+      vendedor: vendedor.nombreUsuario
     };
 
     this.http.post<OrdenVentaDTO>(this.crearOrdenUrl, request).subscribe({

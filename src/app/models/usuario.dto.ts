@@ -1,5 +1,12 @@
 export interface UsuarioDTO {
-  usuario: string;
-  password: string;
-  tipoUsuario: 'ADMINISTRADOR' | 'VENDEDOR' | 'CAJERO'  |  'DESPACHADOR'; // Asegúrate de coincidir con el enum del backend
+  id: number;
+  nombre: string;
+  cedula: string;
+  correo: string;
+  telefono: string;
+  nombreUsuario: string;  // Cambiado de 'usuario' a 'nombreUsuario'
+  contrasena: string;     // Cambiado de 'password' a 'contrasena'
+  tipoUsuario: 'ADMIN' | 'VENDEDOR' | 'CAJERO' | 'DESPACHADOR'; // Valores actualizados
+  fechaCreacion: Date;
+  estado: boolean;
 }
