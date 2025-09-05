@@ -1,4 +1,5 @@
-import { Component, ElementRef, AfterViewInit, OnInit } from '@angular/core';
+// src/app/components/login/login.component.ts
+import { Component, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,11 +12,11 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements AfterViewInit, OnInit {
-  username: string = '';
-  password: string = '';
+export class LoginComponent implements AfterViewInit {
+  nombreUsuario: string = '';
+  contrasena: string = '';
+  isLoading: boolean = false;
   private hasSwapped: boolean = false;
-  currentTheme: string = 'light';
 
   constructor(
     private authService: AuthService,
@@ -24,9 +25,10 @@ export class LoginComponent implements AfterViewInit, OnInit {
   ) {}
 
   ngOnInit() {
-    // Cargar el tema guardado al inicializar el componente
-    localStorage.clear();
-  console.log('LocalStorage reiniciado al ingresar al login');
+    // Limpiar localStorage al iniciar (opcional)
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/']); // Redirigir si ya está logueado
+    }
   }
 
   ngAfterViewInit(): void {
@@ -39,16 +41,12 @@ export class LoginComponent implements AfterViewInit, OnInit {
     const loginContainer = this.elementRef.nativeElement.querySelector('.login-container');
     
     if (loginContainer && !this.hasSwapped) {
-      // Primero preparamos la animación
       loginContainer.classList.add('swap-init');
       
-      // Luego ejecutamos la transición completa
       setTimeout(() => {
         loginContainer.classList.remove('swap-init');
         loginContainer.classList.add('swap-completed');
         this.hasSwapped = true;
-        
-        // Activamos efectos secundarios
         this.activateSecondaryEffects();
       }, 1200);
     }
@@ -61,7 +59,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
   private activateWaves(): void {
     const waveCircles = this.elementRef.nativeElement.querySelectorAll('.wave-circle');
-    
     waveCircles.forEach((circle: HTMLElement, index: number) => {
       setTimeout(() => {
         circle.style.animationPlayState = 'running';
@@ -84,24 +81,25 @@ export class LoginComponent implements AfterViewInit, OnInit {
     });
   }
 
-
-
   onLogin(): void {
-    if (!this.username || !this.password) {
+    if (!this.nombreUsuario || !this.contrasena) {
       alert('Por favor ingresa usuario y contraseña');
       return;
     }
     
-  
-    this.authService.login(this.username, this.password).subscribe({
-      next: (usuario) => {
-        if (!usuario) {
+    this.isLoading = true;
+
+    this.authService.login(this.nombreUsuario, this.contrasena).subscribe({
+      next: (success) => {
+        this.isLoading = false;
+        if (!success) {
           alert('Usuario o contraseña incorrectos');
         }
       },
       error: (error) => {
+        this.isLoading = false;
         console.error('Error en login:', error);
-        alert('Error al intentar iniciar sesión');
+        alert(error.message || 'Error al intentar iniciar sesión');
       }
     });
   }

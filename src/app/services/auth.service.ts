@@ -1,64 +1,87 @@
-// src/app/services/auth.service.ts
+// src/app/services/auth.service.ts (actualizado)
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { UsuarioDTO } from '../models/usuario.dto';
-import { Observable, of, catchError, tap } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, of, catchError, tap, map } from 'rxjs';
+
+import { LoginResponse } from '../models/login-response.dto';
 import { UsuarioService } from './usuario.service';
+import { MensajeDto } from '../models/mensaje.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/usuarios';
-  private usuarioActual: UsuarioDTO | null = null;
+  private apiUrl = 'http://localhost:8080/usuarios';
   private tiempoExpiracion = 1000 * 60 * 30; // ⏰ 30 minutos
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private usuarioService: UsuarioService // Inyectar UsuarioService
   ) {}
 
-  login(username: string, password: string): Observable<UsuarioDTO | null> {
-    return this.http.get<UsuarioDTO>(`${this.apiUrl}/login/${username}/${password}`).pipe(
-      tap(usuario => {
-        this.usuarioActual = usuario;
+  login(nombreUsuario: string, contrasena: string): Observable<boolean> {
+    const params = new HttpParams()
+      .set('nombreUsuario', nombreUsuario)
+      .set('contrasena', contrasena);
 
+    return this.http.post<MensajeDto<LoginResponse>>(
+      `${this.apiUrl}/login`, 
+      null,
+      { params }
+    ).pipe(
+      map(response => {
+        if (response.error) {
+          throw new Error(response.mensaje);
+        }
+        
+        // Crear objeto UsuarioDto a partir de la respuesta
+        const usuario = {
+          id: 0,
+          nombre: response.data.nombre,
+          cedula: '',
+          correo: '',
+          telefono: '',
+          nombreUsuario: response.data.nombreUsuario,
+          contrasena: '',
+          tipoUsuario: response.data.tipoUsuario,
+          fechaCreacion: new Date(),
+          estado: true
+        };
+
+        // Guardar en el servicio de usuario
+        this.usuarioService.setUsuario(usuario);
+
+        // Guardar en localStorage para persistencia
         const data = {
           usuario,
           exp: Date.now() + this.tiempoExpiracion
         };
-
         localStorage.setItem('usuario', JSON.stringify(data));
+
         this.redirigirPorRol(usuario.tipoUsuario);
+        return true;
       }),
-      catchError(() => of(null))
+      catchError(error => {
+        console.error('Error en login:', error);
+        return of(false);
+      })
     );
   }
 
-  getUsuarioActual(): UsuarioDTO | null {
-    const usuarioStr = localStorage.getItem('usuario');
-    if (!usuarioStr) return null;
-
-    const data = JSON.parse(usuarioStr);
-
-    if (Date.now() > data.exp) {
-      // ⏳ Sesión expirada
-      this.logout();
-      return null;
-    }
-
-    return data.usuario as UsuarioDTO;
+  getUsuarioActual() {
+    return this.usuarioService.getUsuario();
   }
 
   logout(): void {
-    this.usuarioActual = null;
+    this.usuarioService.limpiarUsuario();
     localStorage.removeItem('usuario');
     this.router.navigate(['/login']);
   }
 
-  redirigirPorRol(rol: UsuarioDTO['tipoUsuario']): void {
-    switch (rol) {
+  redirigirPorRol(tipoUsuario: string): void {
+    switch (tipoUsuario) {
       case 'ADMIN':
         this.router.navigate(['/admin']);
         break;
@@ -75,10 +98,17 @@ export class AuthService {
         this.router.navigate(['/']);
         break;
     }
+  }
 
-    if (this.usuarioActual) {
-      const usuarioService = new UsuarioService(this.http);
-      usuarioService.setUsuario(this.usuarioActual);
+  isLoggedIn(): boolean {
+    const usuarioStr = localStorage.getItem('usuario');
+    if (!usuarioStr) return false;
+
+    try {
+      const data = JSON.parse(usuarioStr);
+      return Date.now() <= data.exp;
+    } catch {
+      return false;
     }
   }
 }

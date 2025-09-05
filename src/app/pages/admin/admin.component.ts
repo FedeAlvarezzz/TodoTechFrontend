@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { UsuarioDTO } from '../../models/usuario.dto';
+
 import { UsuarioService } from '../../services/usuario.service';
 import { PersonaDTO } from '../../models/persona.dto';
 import { ProductoService } from '../../services/producto.service';
@@ -16,6 +16,7 @@ import { DespachadorService } from '../../services/despachador.service';
 import { CajeroService } from '../../services/cajero.service';
 import { Router } from '@angular/router';
 import { ProductoReporteRequest } from '../../models/productoReporteRequest.dto';
+import { UsuarioDto } from '../../models/usuario.dto';
 
 export interface CrearUsuarioDTO {
   nombre: string;
@@ -43,7 +44,7 @@ export class AdminComponent implements OnInit {
   telefono: string = '';
   seccionActiva: string = 'bienvenida';
 
-  usuarios: UsuarioDTO[] = [];
+  usuarios: UsuarioDto[] = [];
   productos: ProductoDTO[] = [];
   ordenes: OrdenVentaDTO[] = [];
   reportesPorVendedor: ReporteRendimientoDTO[] = [];
@@ -134,7 +135,7 @@ export class AdminComponent implements OnInit {
 
   actualizarProducto() {}
 
-  editarUsuario(usuario: UsuarioDTO) {}
+  editarUsuario(usuario: UsuarioDto) {}
 
-  cambiarEstadoUsuario(usuario: UsuarioDTO) {}
+  cambiarEstadoUsuario(usuario: UsuarioDto) {}
 }

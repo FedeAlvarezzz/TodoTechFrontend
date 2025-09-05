@@ -14,16 +14,16 @@ import { AuthGuard } from './guards/auth.guard';
 export const routes: Routes = [
    { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirigir a login al inicio
    { path: 'login', component: LoginComponent },
-   { path: 'inicio', component: InicioComponent },
+   //{ path: 'inicio', component: InicioComponent , canActivate: [AuthGuard]},
    { path: 'admin', component: AdminComponent },
    { path: 'phone', component: PhoneComponent },
    { path: 'gaming', component: GamingComponent },
    { path: 'laptops', component: LaptopsComponent },
    { path: 'accesorios', component: AccesoriosComponent },
-   
    { path: 'caja', component: CajaComponent },
    { path: 'despacho', component: DespachoComponent },
-   { path: 'ordenVenta', component: OrdenVentaComponent, canActivate: [AuthGuard] },
+   //{ path: 'ordenVenta', component: OrdenVentaComponent, canActivate: [AuthGuard] },
+   { path: 'ordenVenta', component: OrdenVentaComponent },
    
 
    { path: '**', redirectTo: 'login', pathMatch: 'full' } // Rutas no encontradas -> login

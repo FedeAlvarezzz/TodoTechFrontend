@@ -6,12 +6,13 @@ import { OrdenVentaService } from '../../services/orden-venta.service';
 import { Router } from '@angular/router';
 
 import { ClienteDTO } from '../../models/cliente.dto';
-import { UsuarioDTO } from '../../models/usuario.dto';
+
 import { CrearOrdenDTO } from '../../models/CrearOrden.dto';
 import { OrdenVentaDTO } from '../../models/ordenventa.dto';
 
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UsuarioDto } from '../../models/usuario.dto';
 
 @Component({
   selector: 'app-orden-venta',
@@ -148,7 +149,7 @@ export class OrdenVentaComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(): void {
-    const vendedor: UsuarioDTO | null = this.usuarioService.getUsuario();
+    const vendedor: UsuarioDto | null = this.usuarioService.getUsuario();
 
     if (!vendedor || !vendedor.nombreUsuario) {
       alert('Error: no se encontró el usuario autenticado.');
