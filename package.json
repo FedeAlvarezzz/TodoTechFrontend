@@ -18,9 +18,9 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@auth0/auth0-angular": "^2.2.3",
     "aos": "^2.3.4",
     "chart.js": "^4.4.9",
-    
     "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
